@@ -20,10 +20,22 @@ def generate_launch_description():
     )
 
     # Gazebo Sim (using the command that works for you)
+    # Gazebo Sim
+    world_path = os.path.join(pkg_share, 'worlds', 'myworld.sdf')
+
     gz_sim = IncludeLaunchDescription(
-        PythonLaunchDescriptionSource(os.path.join(get_package_share_directory('ros_gz_sim'), 'launch', 'gz_sim.launch.py')),
-        launch_arguments={'gz_args': '-r empty.sdf'}.items(),
+        PythonLaunchDescriptionSource(
+            os.path.join(
+                get_package_share_directory('ros_gz_sim'),
+                'launch',
+                'gz_sim.launch.py'
+            )
+        ),
+        launch_arguments={
+            'gz_args': f'-r {world_path}'
+        }.items(),
     )
+
 
     # Spawn
     spawn = Node(
