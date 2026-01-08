@@ -5,6 +5,7 @@ from launch.actions import IncludeLaunchDescription, SetEnvironmentVariable
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch.substitutions import Command
 from launch_ros.actions import Node
+from launch_ros.parameter_descriptions import ParameterValue
 
 def generate_launch_description():
     pkg_share = get_package_share_directory('box_bot_sim')
@@ -13,10 +14,15 @@ def generate_launch_description():
     set_gz_ip = SetEnvironmentVariable('GZ_IP', '127.0.0.1')
 
     # Robot State Publisher
+    robot_description = ParameterValue(
+        Command(['xacro ', os.path.join(pkg_share, 'urdf', 'box_bot.urdf.xacro')]),
+        value_type=str
+    )
+
     rsp = Node(
         package='robot_state_publisher',
         executable='robot_state_publisher',
-        parameters=[{'robot_description': Command(['xacro ', os.path.join(pkg_share, 'urdf', 'box_bot.urdf.xacro')])}]
+        parameters=[{'robot_description': robot_description}]
     )
 
     # Gazebo Sim (using the command that works for you)
