@@ -93,9 +93,7 @@
       <frame_id>odom</frame_id>
       <child_frame_id>base_link</child_frame_id>
     </plugin>
-    <plugin filename="gz-sim-joint-state-publisher-system" name="gz::sim::systems::JointStatePublisher"/>
-    <plugin filename="gz-sim-state-publisher-system" name="gz::sim::systems::StatePublisher">
-      <use_interpolation>true</use_interpolation>
+    <plugin filename="gz-sim-joint-state-publisher-system" name="gz::sim::systems::JointStatePublisher">
     </plugin>
   </gazebo>
 
